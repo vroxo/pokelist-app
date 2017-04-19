@@ -6,7 +6,7 @@
         <ion-title>
             <img src="assets/images/pokeball.png" alt=""
                  style="width: 18px;height: 18px;vertical-align: middle;"/>
-            <strong>Ionic 2 Pokedex</strong>
+            <strong>Pokélist</strong>
         </ion-title>
     </ion-navbar>
 
@@ -19,7 +19,7 @@
 </ion-header>
 
 <ion-content>
-    <loader *ngIf="!pokemonList.length" text="Loading Pokedex..."></loader>
+    <loader *ngIf="!pokemonList.length" text="Loading Pokélist..."></loader>
     <div *ngIf="pokemonList.length">
 
         <ion-list>

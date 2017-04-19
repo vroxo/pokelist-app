@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from 'ionic-angular';
-import { PokemonDetails } from './pokemon-details';
 
 import { PipesModule } from '../../pipes/pipes.module';
 import { PokemonDetailAbilities } from './pokemon-detail-abilities/pokemon-detail-abilities';
@@ -33,7 +32,7 @@ const pokemonDetails = [
 
 @NgModule({
   declarations: [
-    PokemonDetails,
+    pokemonDetails,
   ],
   imports: [
     CommonModule,
