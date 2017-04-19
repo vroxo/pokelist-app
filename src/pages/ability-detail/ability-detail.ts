@@ -1,24 +1,30 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, IonicPage } from 'ionic-angular';
 
-/**
- * Generated class for the AbilityDetail page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+import { PokelistService } from './../../providers/pokelist-service';
+
 @IonicPage()
 @Component({
-  selector: 'page-ability-detail',
+
   templateUrl: 'ability-detail.html',
 })
 export class AbilityDetail {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  ability: any = {};
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AbilityDetail');
+  constructor(
+    private navParams: NavParams,
+    private navCtrl: NavController,
+    private pokedexService: PokelistService
+  ) {  }
+
+  ngOnInit() {
+    let id = this.navParams.data.id;
+    this.pokedexService.getAbility(id)
+      .subscribe(data => {
+        this.ability = data;
+        console.log(this.ability);
+      });
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 /**
  * Generated class for the Loader component.
@@ -12,11 +12,5 @@ import { Component } from '@angular/core';
 })
 export class Loader {
 
-  text: string;
-
-  constructor() {
-    console.log('Hello Loader Component');
-    this.text = 'Hello World';
-  }
-
+  @Input() text: string;
 }

@@ -1,24 +1,24 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, IonicPage } from 'ionic-angular';
 
-/**
- * Generated class for the TypeList page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+import { PokelistService } from './../../providers/pokelist-service';
+
 @IonicPage()
 @Component({
-  selector: 'page-type-list',
-  templateUrl: 'type-list.html',
+  templateUrl: 'type-list.html'
 })
 export class TypeList {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  private types: any[] = [];
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad TypeList');
+  constructor(
+    private navCtrl: NavController,
+    private pokedexService: PokelistService
+  ) {}
+
+  ngOnInit(){
+    this.pokedexService.getTypes()
+      .subscribe(types => this.types = types);
   }
 
 }

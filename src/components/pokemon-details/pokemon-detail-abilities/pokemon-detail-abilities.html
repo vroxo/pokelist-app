@@ -1,4 +1,11 @@
-<!-- Generated template for the PokemonDetailAbilities component -->
 <div>
-  {{text}}
+  <ion-list>
+    <ion-list-header>Abilities</ion-list-header>
+    <ion-item detail-push
+      *ngFor="let ability of getPokemonAbilities()"
+      (click)=goToDetail(ability)>
+      {{ ability?.ability?.name | capitalize }}
+      <span *ngIf="ability.is_hidden">(Hidden Ability)</span>
+    </ion-item>
+  </ion-list>
 </div>

@@ -1,22 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 
-/**
- * Generated class for the PokemonDetailSpecies component.
- *
- * See https://angular.io/docs/ts/latest/api/core/index/ComponentMetadata-class.html
- * for more info on Angular Components.
- */
+import { PokelistService } from './../../../providers/pokelist-service';
+import { Utilities } from '../../../util/utilities';
+
 @Component({
   selector: 'pokemon-detail-species',
   templateUrl: 'pokemon-detail-species.html'
 })
-export class PokemonDetailSpecies {
+export class PokemonDetailSpecies implements OnChanges {
 
-  text: string;
+  @Input() pokemon: any;
+  private speciesDetails: any;
+  private tab: string = 'pokedex';
+  speciesName: string;
+  description: string;
 
-  constructor() {
-    console.log('Hello PokemonDetailSpecies Component');
-    this.text = 'Hello World';
+  constructor(
+    private pokedexService: PokelistService,
+    private util: Utilities
+  ) {}
+
+  ngOnChanges(){
+    let speciesId: number = this.util.retrieveIdFromUrl(this.pokemon.species.url, 'pokemon-species');
+    this.pokedexService.getSpecies(speciesId)
+      .subscribe(data => this.initSpeciesData(data));
   }
 
+  initSpeciesData(data){
+    this.speciesDetails = data;
+    this.speciesName = this.util.getTranslatedName(this.speciesDetails.genera);
+    this.description = this.util.getTranslatedName(this.speciesDetails.flavor_text_entries);
+  }
 }

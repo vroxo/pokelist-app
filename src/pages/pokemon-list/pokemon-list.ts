@@ -1,24 +1,49 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, OnInit } from '@angular/core';
+import { NavController, IonicPage } from 'ionic-angular';
 
-/**
- * Generated class for the PokemonList page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+import { PokelistService } from './../../providers/pokelist-service';
+import { PokemonDetail } from '../pokemon-detail/pokemon-detail';
+
 @IonicPage()
 @Component({
   selector: 'page-pokemon-list',
-  templateUrl: 'pokemon-list.html',
+  templateUrl: 'pokemon-list.html'
 })
-export class PokemonList {
+export class PokemonList implements OnInit {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  private pokemonList: any[] = [];
+  private searchQuery: string = '';
+
+  constructor(
+    private navCtrl: NavController,
+    private pokedexService: PokelistService
+  ) {}
+
+  ngOnInit(){
+    this.pokedexService.getAllPokemon()
+      .subscribe(data => {
+        this.pokemonList = data;
+        this.pokedexService.initData();
+    });
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad PokemonList');
+  getPokemons(){
+    var q = this.searchQuery;
+    if (q.trim() == '') {
+        return this.pokemonList;
+    }
+    return this.pokemonList.filter((v) => {
+        if (v.name.toLowerCase().indexOf(q.toLowerCase()) >= 0) {
+            return true;
+        }
+        return false;
+    });
+  }
+
+  goToPokemonDetail(event){
+    this.navCtrl.push(PokemonDetail, {
+      pokemon: event.pokemon
+    });
   }
 
 }

@@ -1,3 +1,12 @@
-pokemon-detail-move-detail-row {
+.levelup-info {
+  font-size: 11px;
+}
 
+.levelup-header {
+  font-weight: bold;
+}
+
+.levelup-header-tc {
+  @extend .levelup-header;
+  text-align: center;
 }

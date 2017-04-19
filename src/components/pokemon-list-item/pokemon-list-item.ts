@@ -1,22 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-/**
- * Generated class for the PokemonListItem component.
- *
- * See https://angular.io/docs/ts/latest/api/core/index/ComponentMetadata-class.html
- * for more info on Angular Components.
- */
+
 @Component({
   selector: 'pokemon-list-item',
   templateUrl: 'pokemon-list-item.html'
 })
 export class PokemonListItem {
 
-  text: string;
+  @Input() pokemon: any;
+  @Output() clicked: EventEmitter<any> = new EventEmitter();
 
-  constructor() {
-    console.log('Hello PokemonListItem Component');
-    this.text = 'Hello World';
+  getPokemonTypes(){
+    let types: any[] = [];
+    if (this.pokemon && this.pokemon.types) {
+      let type: any;
+      for (let i=0; i<this.pokemon.types.length; i++){
+        type = this.pokemon.types[i];
+        if (type){
+          types.splice((type.slot-1), 0, type);
+        }
+      }
+    }
+    if (types.length > 0){
+      this.pokemon.types = types;
+    }
+    return types;
   }
 
+  goToPokemonDetail(){
+    this.clicked.emit({pokemon: this.pokemon});
+  }
 }
